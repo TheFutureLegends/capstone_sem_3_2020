@@ -1,0 +1,55 @@
+{
+  "name": "dscapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "start:prod": "node .",
+    "lint": "./node_modules/.bin/eslint --init",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "RMIT University",
+    "Developer Student Club",
+    "DSC",
+    "Developer",
+    "node.js",
+    "express",
+    "jwt",
+    "authentication",
+    "mongodb"
+  ],
+  "author": "Tri Nguyen",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-standard": "^15.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.2",
+    "faker": "^5.1.0",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "imgur": "^0.3.1",
+    "isodate": "^0.1.4",
+    "joi": "^17.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "markdown-js": "0.0.4",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.10.9",
+    "multer": "^1.4.2",
+    "path": "^0.12.7",
+    "slugify": "^1.4.5"
+  }
+}
