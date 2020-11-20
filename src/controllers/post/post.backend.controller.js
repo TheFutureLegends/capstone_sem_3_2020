@@ -23,11 +23,11 @@ const readPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   // Validate input
-  // const { error } = validationRules.postValidation.postSchema.validate(
-  //   req.body
-  // );
+  const { error } = validationRules.postValidation.postSchema.validate(
+    req.body
+  );
 
-  // if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const category = await Category.findOne({
     slug: req.body.category.toLowerCase(),
