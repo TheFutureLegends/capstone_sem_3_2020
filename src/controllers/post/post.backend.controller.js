@@ -8,17 +8,21 @@ const Category = db.category;
 const readPost = async (req, res) => {
   // const { limit = 10, page = 1 } = req.query;
 
-  const posts = await Post.find({
-    author: {
-      _id: req.userId,
-    },
-  })
-    .populate(["author", "category"])
-    .exec();
+  try {
+    const posts = await Post.find({
+      author: {
+        _id: req.userId,
+      },
+    })
+      .populate(["author", "category"])
+      .exec();
 
-  const result = postCrud.readPost(posts);
+    const result = postCrud.readPost(posts);
 
-  return res.status(200).send({ posts: result });
+    return res.status(200).send({ posts: result });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
 };
 
 const createPost = async (req, res) => {
@@ -40,11 +44,9 @@ const createPost = async (req, res) => {
     category._id
   );
 
-  if (!postCondition.status) {
-    return res.status(500).send({ message: postCondition.message });
-  }
-
-  return res.status(200).send({ message: "Post Created Successfully" });
+  return res
+    .status(postCondition.status)
+    .send({ message: postCondition.message });
 };
 
 const editPost = async (req, res) => {};

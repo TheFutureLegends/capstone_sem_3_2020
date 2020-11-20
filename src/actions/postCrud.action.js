@@ -20,14 +20,15 @@ const createPost = (body, file, userId, categoryId) => {
   post.save((err, post) => {
     if (err) {
       return {
-        status: false,
+        status: 400,
         message: err.message,
       };
     }
   });
 
   return {
-    status: true,
+    status: 200,
+    message: "Post Created Successfully",
   };
 };
 
