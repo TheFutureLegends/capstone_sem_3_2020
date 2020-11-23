@@ -2,8 +2,6 @@ import slugify from "slugify";
 import db from "../models/index.js";
 import postClasses from "../classes/post.class.js";
 
-const User = db.user;
-
 const Post = db.post;
 
 const createPost = (body, file, userId, categoryId) => {
@@ -27,7 +25,7 @@ const createPost = (body, file, userId, categoryId) => {
   });
 
   return {
-    status: 200,
+    status: 201,
     message: "Post Created Successfully",
   };
 };
@@ -46,11 +44,47 @@ const readPost = (posts) => {
   return result;
 };
 
-const editPost = () => {};
+const editPost = (post) => {
+  const postClass = new postClasses();
 
-const updatePost = () => {};
+  postClass.setPost = post;
 
-const deletePost = () => {};
+  return postClass.getPost();
+};
+
+const updatePost = (post, body) => {
+  body.slug = slugify(body.title.toLowerCase());
+
+  post.updateOne(body, (err, post) => {
+    if (err) {
+      return {
+        status: 400,
+        message: err.message,
+      };
+    }
+  });
+
+  return {
+    status: 204,
+    message: "Post Updated Successfully!",
+  };
+};
+
+const deletePost = (post) => {
+  post.deleteOne((err, post) => {
+    if (err) {
+      return {
+        status: 400,
+        message: err.message,
+      };
+    }
+  });
+
+  return {
+    status: 204,
+    message: "Post Deleted Successfully!",
+  };
+};
 
 const postCrud = {
   createPost,

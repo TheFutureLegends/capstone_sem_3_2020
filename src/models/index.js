@@ -7,6 +7,7 @@ import University from "./university/university.model.js";
 import Club from "./club/club.model.js";
 
 import Post from "./post/post.model.js";
+import Comment from "./comment/comment.model.js";
 
 import Category from "./category/category.model.js";
 
@@ -25,6 +26,8 @@ db.university = University;
 db.club = Club;
 
 db.post = Post;
+
+db.comment = Comment;
 
 db.category = Category;
 

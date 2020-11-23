@@ -11,6 +11,7 @@ import db from "./src/models/index.js";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import postRouter from "./routes/post.routes.js";
+import commentRouter from "./routes/comment.routes.js";
 
 import developmentRouter from "./routes/development.routes.js";
 
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
+// app.use("/api/comments", commentRouter);
 
 app.use("/development", developmentRouter);
 

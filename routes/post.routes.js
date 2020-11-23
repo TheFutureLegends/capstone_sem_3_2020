@@ -2,9 +2,15 @@ import express from "express";
 
 import middleware from "../src/middleware/index.js";
 
+import postFrontend from "../src/controllers/post/post.frontend.controller.js";
+
 import postBackend from "../src/controllers/post/post.backend.controller.js";
 
 const router = express.Router();
+
+router.get("/", postFrontend.getAllPosts);
+
+router.get("/top-author", postFrontend.getTopAuthors);
 
 router.get(
   "/read",
@@ -19,7 +25,11 @@ router.post(
   postBackend.createPost
 );
 
-router.get("/edit");
+router.get(
+  "/edit/:id",
+  [middleware.authJwt.verifyToken, middleware.permission.isAuthor],
+  postBackend.editPost
+);
 
 router.put(
   "/update/:id",
@@ -32,5 +42,7 @@ router.delete(
   [middleware.authJwt.verifyToken, middleware.permission.isAuthor],
   postBackend.deletePost
 );
+
+router.get("/:slug", postFrontend.getPostDetail);
 
 export default router;
