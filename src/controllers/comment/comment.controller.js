@@ -1,4 +1,5 @@
 import db from "../../models/index.js";
+import validationRules from "../../validations/index.js";
 import commentCrud from "../../actions/commentCrud.action.js";
 import commentClasses from "../../classes/comment.class.js";
 
@@ -51,7 +52,27 @@ const createComment = async (req, res) => {
 
 const editComment = async (req, res) => {};
 
-const updateComment = async (req, res) => {};
+const updateComment = async (req, res) => {
+  // Validate input
+  const { error } = validationRules.commentValidation.commentSchema.validate(
+    req.body
+  );
+  if (error) return res.status(400).send(error.details[0].message);
+
+  try {
+    const comment = await Comment.findOne({
+      _id: req.params.comment_id,
+    }).exec();
+
+    const commentCondition = commentCrud.updateComment(req.body, comment);
+
+    return res
+      .status(commentCondition.status)
+      .send({ message: commentCondition.message });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
 
 const deleteComment = async (req, res) => {
   try {
@@ -60,7 +81,13 @@ const deleteComment = async (req, res) => {
       post: req.params.post_id,
     }).exec();
 
-    const commentCondition = commentCrud.deletePost(comment);
+    // const reply = await Comment.find({
+    //   parent: req.params.comment_id,
+    // }).exec();
+
+    // console.log(reply);
+
+    const commentCondition = commentCrud.deleteComment(comment);
 
     return res
       .status(commentCondition.status)
