@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
-// app.use("/api/comments", commentRouter);
+app.use("/api/comments", commentRouter);
 
 app.use("/development", developmentRouter);
 
@@ -74,3 +74,9 @@ const PORT = process.env.PORT || process.env.APP_PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
+
+/**
+ * Register - login
+ * Homepage (display post)
+ * Chatbot (can interact with it)
+ */

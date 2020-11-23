@@ -4,6 +4,8 @@ import postClasses from "../classes/post.class.js";
 
 const Post = db.post;
 
+const postClass = new postClasses();
+
 const createPost = (body, file, userId, categoryId) => {
   const post = new Post({
     title: body.title,
@@ -33,8 +35,6 @@ const createPost = (body, file, userId, categoryId) => {
 const readPost = (posts) => {
   const result = [];
 
-  const postClass = new postClasses();
-
   posts.forEach((value, index) => {
     postClass.setPost = value;
 
@@ -45,8 +45,6 @@ const readPost = (posts) => {
 };
 
 const editPost = (post) => {
-  const postClass = new postClasses();
-
   postClass.setPost = post;
 
   return postClass.getPost();
