@@ -50,7 +50,21 @@ const createComment = async (req, res) => {
   }
 };
 
-const editComment = async (req, res) => {};
+const editComment = async (req, res) => {
+  try {
+    const comment = await Comment.find({
+      _id: req.params.comment_id,
+      post: req.params.post_id,
+      author: req.userId,
+    });
+
+    commentClass.setComment = comment;
+
+    return res.status(200).send({ comment: commentClass.getComment() });
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+};
 
 const updateComment = async (req, res) => {
   // Validate input
