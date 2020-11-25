@@ -18,6 +18,12 @@ router.post(
   commentController.createComment
 );
 
+router.get(
+  "/:post_id/edit/:comment_id",
+  [middleware.authJwt.verifyToken],
+  commentController.editComment
+);
+
 router.put(
   "/:post_id/update/:comment_id",
   [middleware.authJwt.verifyToken],

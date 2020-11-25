@@ -1,4 +1,5 @@
 import db from "../models/index.js";
+import postClasses from "../classes/post.class.js";
 
 class userClasses {
   constructor() {
@@ -9,8 +10,33 @@ class userClasses {
     return this._user;
   }
 
+  set userPosts(posts) {
+    this._user_post = posts;
+  }
+
   set userAPI(user) {
     this._user = user;
+  }
+
+  getProfile() {
+    const postClass = new postClasses();
+
+    var post_result = [];
+
+    var posts = this._user_post;
+
+    posts.forEach((value, index) => {
+      postClass.setPost = value;
+
+      post_result.push(postClass.getPost());
+    });
+
+    return {
+      username: this._user.username,
+      email: this._user.email,
+      avatar: this._user.avatar,
+      posts: post_result,
+    };
   }
 
   getUser() {

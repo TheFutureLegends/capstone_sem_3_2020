@@ -1,14 +1,16 @@
 import express from "express";
 
 import middleware from "../src/middleware/index.js";
-import { getProfile } from "../src/controllers/user/user.controller.js";
+import userController from "../src/controllers/user/user.controller.js";
 
 const router = express.Router();
 
-router.get("/profile", [middleware.authJwt.verifyToken], getProfile);
+router.get(
+  "/profile",
+  [middleware.authJwt.verifyToken],
+  userController.getUser
+);
 
-router.get("/call", (req, res) => {
-  return res.status(200).send("calling router");
-});
+router.get("/:username", userController.getProfile);
 
 export default router;
