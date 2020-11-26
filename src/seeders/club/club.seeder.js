@@ -8,6 +8,7 @@ const University = db.university;
 const Club = db.club;
 
 const clubSeeder = () => {
+  console.log("Calling club seeder!");
   Club.estimatedDocumentCount((err, count) => {
     if (err) {
       console.log("ERROR: ", err);
