@@ -77,9 +77,39 @@ const getUser = async (req, res) => {
   });
 };
 
+const readUser = async (req, res) => {
+  const result = [];
+
+  const logged_user = await User.findById(req.userId).populate("roles").exec();
+
+  const user = await User.find({
+    university: logged_user.university,
+  })
+    .populate("roles")
+    .exec();
+
+  user.forEach((value, index) => {
+    userClass.userAPI = value;
+
+    result.push(userClass.getUser());
+  });
+
+  return res.status(200).send({ user: result });
+};
+
+const createUser = async (req, res) => {};
+const editUser = async (req, res) => {};
+const updateUser = async (req, res) => {};
+const deleteUser = async (req, res) => {};
+
 const userController = {
   getProfile,
   getUser,
+  readUser,
+  createUser,
+  editUser,
+  updateUser,
+  deleteUser,
 };
 
 export default userController;
