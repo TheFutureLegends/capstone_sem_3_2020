@@ -1,9 +1,14 @@
 import db from "../../models/index.js";
+import userCrud from "../../actions/userCrud.action.js";
 import userClasses from "../../classes/user.class.js";
 
 const User = db.user;
 
 const Post = db.post;
+
+const University = db.university;
+
+const Club = db.club;
 
 const userClass = new userClasses();
 
@@ -78,28 +83,43 @@ const getUser = async (req, res) => {
 };
 
 const readUser = async (req, res) => {
-  const result = [];
-
   const logged_user = await User.findById(req.userId).populate("roles").exec();
 
-  const user = await User.find({
+  const users = await User.find({
     university: logged_user.university,
   })
     .populate("roles")
     .exec();
 
-  user.forEach((value, index) => {
-    userClass.userAPI = value;
+  const result = userCrud.readUser(users);
 
-    result.push(userClass.getUser());
-  });
-
-  return res.status(200).send({ user: result });
+  return res.status(200).send({ users: result });
 };
 
 const createUser = async (req, res) => {
-  
+  const club_array = [];
+
+  const { clubs } = req.body;
+
+  clubs.forEach(async (value, index) => {
+    const club = await Club.findOne({
+      slug: value.toLowerCase(),
+    }).exec();
+
+    club_array.push(club._id);
+  });
+
+  const university = await University.findOne({
+    slug: req.body.university.toLowerCase(),
+  }).exec();
+
+  const userCondition = userCrud.createUser(
+    req.body,
+    university._id,
+    club_array
+  );
 };
+
 const editUser = async (req, res) => {};
 const updateUser = async (req, res) => {};
 const deleteUser = async (req, res) => {};
