@@ -6,6 +6,7 @@ import moment from "moment-timezone";
 const University = db.university;
 
 const universitySeeder = () => {
+  console.log("Calling univeristy seeder!");
   University.estimatedDocumentCount((err, count) => {
     if (err) {
       console.log("ERROR: ", err);
